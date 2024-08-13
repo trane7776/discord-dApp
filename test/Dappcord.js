@@ -43,5 +43,38 @@ describe('Dappcord', function () {
       expect(result).to.equal(deployer.address);
     });
   });
-  describe('Creating Channels', () => {});
+  describe('Creating Channels', () => {
+    it('Returns total channels', async () => {
+      const result = await dappcord.totalChannels();
+      expect(result).to.be.equal(1);
+    });
+    it('Returns channel attributes', async () => {
+      const channel = await dappcord.getChannel(1);
+      expect(channel.id).to.be.equal(1);
+      expect(channel.name).to.be.equal('general');
+      expect(channel.cost).to.be.equal(tokens(1));
+    });
+  });
+  describe('Joining Channels', () => {
+    const ID = 1;
+    const AMOUNT = ethers.utils.parseUnits('1', 'ether');
+    beforeEach(async () => {
+      const transaction = await dappcord
+        .connect(user)
+        .mint(ID, { value: AMOUNT });
+      await transaction.wait();
+    });
+    it('Joins the user', async () => {
+      const result = await dappcord.hasJoined(ID, user.address);
+      expect(result).to.be.equal(true);
+    });
+    it('Increases total supply', async () => {
+      const result = await dappcord.totalSupply();
+      expect(result).to.be.equal(ID);
+    });
+    it('Updates the contract balance', async () => {
+      const result = await ethers.provider.getBalance(dappcord.address);
+      expect(result).to.be.equal(AMOUNT);
+    });
+  });
 });
