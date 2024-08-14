@@ -77,4 +77,26 @@ describe('Dappcord', function () {
       expect(result).to.be.equal(AMOUNT);
     });
   });
+  describe('Withdrawing', () => {
+    const ID = 1;
+    const AMOUNT = ethers.utils.parseUnits('10', 'ether');
+    let balanceBefore;
+    beforeEach(async () => {
+      balanceBefore = await ethers.provider.getBalance(deployer.address);
+      let transaction = await dappcord
+        .connect(user)
+        .mint(ID, { value: AMOUNT });
+      await transaction.wait();
+      transaction = await dappcord.connect(deployer).withdraw();
+      await transaction.wait();
+    });
+    it('Updates the owner balance', async () => {
+      const balanceAfter = await ethers.provider.getBalance(deployer.address);
+      expect(balanceAfter).to.be.gt(balanceBefore);
+    });
+    it('Updates the contract balance', async () => {
+      const result = await ethers.provider.getBalance(dappcord.address);
+      expect(result).to.be.equal(0);
+    });
+  });
 });

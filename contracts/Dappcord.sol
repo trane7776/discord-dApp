@@ -31,14 +31,24 @@ contract Dappcord is ERC721URIStorage {
   }
 
   function mint(uint256 _id) public payable {
+    require(_id != 0);
+    require(_id <= totalChannels);
+    require(hasJoined[_id][msg.sender] == false);
+    require(msg.value >= channels[_id].cost);
+    
     // Join channel
     hasJoined[_id][msg.sender] = true;
-    
+
     // Mint NFT
     totalSupply++;
     _safeMint(msg.sender, totalSupply);
   }
   function getChannel(uint256 _id) public view returns (Channel memory) {
     return channels[_id];
+  }
+
+  function withdraw() public onlyOwner {
+    (bool success, ) = owner.call{value: address(this).balance}("");
+    require(success, "Transfer failed.");
   }
 }
