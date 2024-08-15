@@ -7,20 +7,20 @@
 }
 
 :root {
-  --clr-white: #FFFFFF;
+  --clr-white: #ffffff;
   --clr-black: #202020;
   --clr-grey: #303136;
   --clr-light-grey: #363940;
   --clr-dark-grey: #212226;
-  --clr-blue: #5865F2;
-  --clr-green: #34AB55;
+  --clr-blue: #5865f2;
+  --clr-green: #34ab55;
 
   --clr-text-grey: #66666e;
 }
 
 body {
   margin: 0;
-  font-family: "Open Sans";
+  font-family: 'Open Sans';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -39,7 +39,7 @@ nav {
   border-bottom: 2px solid var(--clr-dark-grey);
 }
 
-.nav__brand {
+.nav-brand {
   display: flex;
   align-items: center;
 
@@ -48,16 +48,16 @@ nav {
   grid-column: 1 / span 3;
 }
 
-.nav__brand h1 {
+.nav-brand h1 {
   color: var(--clr-white);
 
-  font-family: "Kanit";
-  font-size: 1.50em;
+  font-family: 'Kanit';
+  font-size: 1.5em;
   font-weight: 700;
   letter-spacing: -1px;
 }
 
-.nav__connect {
+.nav-connect {
   width: 175px;
   height: 50px;
   margin: 0 75px 0 auto;
@@ -68,15 +68,15 @@ nav {
   border: none;
   border-radius: 8px;
 
-  font-family: "Open Sans";
-  font-size: 1.10em;
+  font-family: 'Open Sans';
+  font-size: 1.1em;
   font-weight: 600;
 
   cursor: pointer;
   transition: all 250ms ease;
 }
 
-.nav__connect:hover {
+.nav-connect:hover {
   background-color: var(--clr-blue);
 }
 
@@ -145,8 +145,8 @@ main {
 /* ------------------------------------------------------ */
 /* -- CHANNELS -- */
 
-.channels__text,
-.channels__voice {
+.channels-text,
+.channels-voice {
   margin: 30px auto;
 }
 
@@ -156,7 +156,7 @@ main {
   margin: 0 10px;
   padding: 5px;
 
-  font-size: 0.90em;
+  font-size: 0.9em;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: -1px;
@@ -170,7 +170,7 @@ main {
   margin: 3px 10px;
   padding: 5px 20px;
 
-  font-size: 1.10em;
+  font-size: 1.1em;
   font-weight: 600;
 
   cursor: pointer;
@@ -231,14 +231,14 @@ main {
   align-items: center;
 }
 
-.message_content h3 {
+.message-content h3 {
   color: var(--clr-white);
   font-size: 1.05em;
   font-weight: 500;
   margin-left: 15px;
 }
 
-.message_content p {
+.message-content p {
   color: var(--clr-white);
   font-size: 1.05em;
   font-weight: 300;
@@ -253,7 +253,7 @@ main {
   align-items: center;
 }
 
-.text form input[type="text"] {
+.text form input[type='text'] {
   grid-row: 11/13;
 
   background-color: var(--clr-grey);
@@ -267,7 +267,7 @@ main {
 
   padding: 10px;
 
-  font-family: "Open Sans";
+  font-family: 'Open Sans';
 }
 
 .text form button {
