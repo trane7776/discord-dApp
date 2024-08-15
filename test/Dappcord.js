@@ -76,6 +76,9 @@ describe('Dappcord', function () {
       const result = await ethers.provider.getBalance(dappcord.address);
       expect(result).to.be.equal(AMOUNT);
     });
+    it('Updates ownership', async () => {
+      expect(await dappcord.ownerOf(ID)).to.be.equal(user.address);
+    });
   });
   describe('Withdrawing', () => {
     const ID = 1;
@@ -87,6 +90,7 @@ describe('Dappcord', function () {
         .connect(user)
         .mint(ID, { value: AMOUNT });
       await transaction.wait();
+
       transaction = await dappcord.connect(deployer).withdraw();
       await transaction.wait();
     });
