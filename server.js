@@ -62,9 +62,8 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
   console.log('a user connected');
 
-  socket.emit('hello', 'world');
   socket.on('get messages', () => {
-    io.emit('get messages', messages);
+    socket.emit('get messages', messages);
   });
 
   socket.on('new message', (msg) => {

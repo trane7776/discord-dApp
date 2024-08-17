@@ -15,8 +15,13 @@ const Channels = ({
       const transaction = await dappcord
         .connect(signer)
         .mint(channel.id, { value: channel.cost });
-      await transaction.wait();
-      setCurrentChannel(channel);
+      const receipt = await transaction.wait();
+      // if transaction is successful, set current channel
+      if (receipt.status === 1) {
+        setCurrentChannel(channel);
+      } else {
+        alert('Failed to join channel');
+      }
     }
   };
 

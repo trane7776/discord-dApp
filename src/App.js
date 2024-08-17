@@ -24,6 +24,7 @@ function App() {
   const [channels, setChannels] = useState([]);
 
   const [currentChannel, setCurrentChannel] = useState(null);
+  const [messages, setMessages] = useState([]);
 
   const loadBlockchainData = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -51,15 +52,14 @@ function App() {
   useEffect(() => {
     loadBlockchainData();
     socket.on('connect', () => {
-      console.log('socket connected');
+      socket.emit('get messages');
     });
-    socket.on('get messages', () => {
-      console.log('get messages');
+    socket.on('new message', (messages) => {
+      setMessages(messages);
     });
-    socket.on('new message', () => {
-      console.log('new message');
+    socket.on('get messages', (messages) => {
+      setMessages(messages);
     });
-    socket.on('hello', (world) => console.log(world));
 
     return () => {
       socket.off('connect');
@@ -81,7 +81,11 @@ function App() {
           currentChannel={currentChannel}
           setCurrentChannel={setCurrentChannel}
         />
-        <Messages account={account} />
+        <Messages
+          account={account}
+          messages={messages}
+          currentChannel={currentChannel}
+        />
       </main>
     </div>
   );
