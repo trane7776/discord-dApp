@@ -15,13 +15,16 @@ import Dappcord from './abis/Dappcord.json';
 import config from './config.json';
 
 // Socket
-//const socket = io('ws://localhost:3030');
+const socket = io('ws://localhost:3030');
 
 function App() {
   const [account, setAccount] = useState(null);
   const [provider, setProvider] = useState(null);
   const [dappcord, setDappcord] = useState(null);
   const [channels, setChannels] = useState([]);
+
+  const [currentChannel, setCurrentChannel] = useState(null);
+
   const loadBlockchainData = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     setProvider(provider);
@@ -47,6 +50,22 @@ function App() {
   };
   useEffect(() => {
     loadBlockchainData();
+    socket.on('connect', () => {
+      console.log('socket connected');
+    });
+    socket.on('get messages', () => {
+      console.log('get messages');
+    });
+    socket.on('new message', () => {
+      console.log('new message');
+    });
+    socket.on('hello', (world) => console.log(world));
+
+    return () => {
+      socket.off('connect');
+      socket.off('new message');
+      socket.off('get messages');
+    };
   }, []);
   return (
     <div>
@@ -59,6 +78,8 @@ function App() {
           account={account}
           dappcord={dappcord}
           channels={channels}
+          currentChannel={currentChannel}
+          setCurrentChannel={setCurrentChannel}
         />
         <Messages account={account} />
       </main>
